@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-nunito: "Nunito", sans-serif;
+
+  --color-primary: #00664F;
+  --color-primary-light: #e6f0ed;
+  --color-primary-dark-light: rgba(0, 102, 79, 0.15);
+
+  --color-secondary: #805dca;
+  --color-secondary-light: #ebe4f7;
+  --color-secondary-dark-light: #805dca26;
+
+  --color-success: #00ab55;
+  --color-success-light: #ddf5f0;
+  --color-success-dark-light: rgba(0, 171, 85, 0.15);
+
+  --color-danger: #e7515a;
+  --color-danger-light: #fff5f5;
+  --color-danger-dark-light: rgba(231, 81, 90, 0.15);
+
+  --color-warning: #e2a03f;
+  --color-warning-light: #fff9ed;
+  --color-warning-dark-light: rgba(226, 160, 63, 0.15);
+
+  --color-info: #2196f3;
+  --color-info-light: #e7f7ff;
+  --color-info-dark-light: rgba(33, 150, 243, 0.15);
+
+  --color-dark: #3b3f5c;
+  --color-dark-light: #eaeaec;
+  --color-dark-dark-light: rgba(59, 63, 92, 0.15);
+
+  --color-black: #0e1726;
+  --color-black-light: #e3e4eb;
+  --color-black-dark-light: rgba(14, 23, 38, 0.15);
+
+  --color-white: #ffffff;
+  --color-white-light: #e0e6ed;
+  --color-white-dark: #888ea8;
+
+  --spacing-4_5: 18px;
+
+  --shadow-3xl: 0 2px 2px rgb(224 230 237 / 46%), 1px 6px 7px rgb(224 230 237 / 46%);
+
+  --animate-shimmer: shimmer 1.6s infinite;
+  
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  /* Provide system defaults but let the `.dark` class override heavily */
+}
+
+/* Explicit class-based dark mode overrides for Tailwind v4 */
+.dark, html.dark {
+  --background: #060818;
+  --foreground: #888ea8;
+
+  /* Overriding theme colors for dark mode */
+  --color-dark: #0e1726;
+  --color-dark-light: #1b2e4b;
+  --color-dark-dark-light: rgba(14, 23, 38, 0.15);
+
+  --color-white: #0e1726;
+  --color-white-light: #1b2e4b;
+  --color-white-dark: #888ea8;
+  
+  --color-black: #ffffff;
+  --color-black-light: #e3e4eb;
+  --color-black-dark-light: rgba(255, 255, 255, 0.15);
+}
+
+body {
+  @apply font-nunito;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Typography styles from the provided config */
+h1 { @apply text-[40px] mb-2 mt-0; }
+h2 { @apply text-[32px] mb-2 mt-0; }
+h3 { @apply text-[28px] mb-2 mt-0; }
+h4 { @apply text-[24px] mb-2 mt-0; }
+h5 { @apply text-[20px] mb-2 mt-0; }
+h6 { @apply text-[16px] mb-2 mt-0; }
+p { @apply mb-2; }
+li { @apply m-0; }
+img { @apply m-0; }
+
+/* Prose theme overrides */
+.prose {
+  --tw-prose-invert-headings: theme('colors.white.dark');
+  --tw-prose-invert-links: theme('colors.white.dark');
+}
+
