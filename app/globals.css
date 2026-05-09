@@ -102,9 +102,21 @@ p { @apply mb-2; }
 li { @apply m-0; }
 img { @apply m-0; }
 
+.ticker-track {
+  animation: ticker-scroll 22s linear infinite;
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
 /* Prose theme overrides */
 .prose {
   --tw-prose-invert-headings: theme('colors.white.dark');
   --tw-prose-invert-links: theme('colors.white.dark');
 }
-

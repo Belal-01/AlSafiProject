@@ -1,11 +1,5 @@
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
-
+import PublicCurrencyDisplay from "@/components/currency/PublicCurrencyDisplay";
 
 export default function Home() {
-  return (
-
-    <div>
-      Home Page 
-    </div>
-  );
+  return <PublicCurrencyDisplay />;
 }
