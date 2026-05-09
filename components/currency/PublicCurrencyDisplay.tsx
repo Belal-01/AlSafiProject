@@ -26,7 +26,7 @@ export default function PublicCurrencyDisplay() {
   const paginatedCurrencies = useMemo(() => {
     const startIndex = currentPage * 6;
     return visibleCurrencies.slice(startIndex, startIndex + 6);
-  }, [visibleCurrencies, currentPage]);
+  }, [visibleCurrencies, currentPage]); 
 
   useEffect(() => {
     if (visibleCurrencies.length <= 6) {
@@ -89,29 +89,43 @@ export default function PublicCurrencyDisplay() {
     loadSettings();
 
     const supabase = createSupabaseBrowserClient();
+    if (!supabase) {
+      console.error("Supabase client could not be initialized. Realtime updates disabled.");
+      return () => { isMounted = false; };
+    }
     const channel = supabase
-      ?.channel("public-currency-display")
+      .channel("public-currency-display")
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "currencies" },
-        () => {
+        (payload) => {
+          console.log("Realtime currencies payload received:", payload);
           loadPrices();
         }
       )
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "settings" },
-        () => {
-          loadSettings();
+        (payload) => {
+          console.log("Realtime settings payload received:", payload);
+          if (payload.eventType === "UPDATE" || payload.eventType === "INSERT") {
+            if (payload.new && payload.new.ticker_text) {
+              setTickerText(payload.new.ticker_text);
+            } else {
+              loadSettings();
+            }
+          } else {
+            loadSettings();
+          }
         }
       )
-      .subscribe();
+      .subscribe((status) => {
+        console.log("Subscription Status:", status);
+      });
 
     return () => {
       isMounted = false;
-      if (channel) {
-        supabase?.removeChannel(channel);
-      }
+      supabase.removeChannel(channel);
     };
   }, []);
 

@@ -1,7 +1,7 @@
 {
   "info": {
-    "name": "AlSafi Project API",
-    "description": "Collection of all APIs built for the AlSafi Project",
+    "name": "AlSafi Currency Display API",
+    "description": "Postman collection for Al-Safi auth, currency CRUD, public prices, and settings APIs.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -9,7 +9,21 @@
       "name": "Auth",
       "item": [
         {
-          "name": "Login",
+          "name": "Login - Get Admin Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (json.token) {",
+                  "  pm.collectionVariables.set('token', json.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
           "request": {
             "method": "POST",
             "header": [
@@ -20,7 +34,12 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"password123\"\n}"
+              "raw": "{\n  \"email\": \"{{admin_email}}\",\n  \"password\": \"{{admin_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": {
               "raw": "{{base_url}}/api/auth/login",
@@ -32,11 +51,12 @@
                 "auth",
                 "login"
               ]
-            }
+            },
+            "description": "Returns a Bearer token used by protected currency APIs."
           }
         },
         {
-          "name": "Change Password",
+          "name": "Change Admin Password",
           "request": {
             "method": "POST",
             "header": [
@@ -51,7 +71,12 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"new_password\": \"new_secure_password\"\n}"
+              "raw": "{\n  \"new_password\": \"new_secure_password\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": {
               "raw": "{{base_url}}/api/auth/change-password",
@@ -63,16 +88,31 @@
                 "auth",
                 "change-password"
               ]
-            }
+            },
+            "description": "Protected endpoint. Changes the password for the authenticated Supabase admin user."
           }
         }
       ]
     },
     {
-      "name": "Currencies",
+      "name": "Currencies CRUD",
       "item": [
         {
           "name": "Get All Currencies",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (Array.isArray(json.data) && json.data[0]?.id) {",
+                  "  pm.collectionVariables.set('currency_id', json.data[0].id);",
+                  "}"
+                ]
+              }
+            }
+          ],
           "request": {
             "method": "GET",
             "header": [],
@@ -84,50 +124,37 @@
               "path": [
                 "api",
                 "currencies"
-              ],
-              "query": [
-                {
-                  "key": "visible",
-                  "value": "true",
-                  "disabled": true,
-                  "description": "Optional: set to 'true' to get only visible currencies"
-                }
               ]
-            }
+            },
+            "description": "Public endpoint. Returns all currencies."
           }
         },
         {
-          "name": "Create Currency",
+          "name": "Get Visible Currencies",
           "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"base_currency\": \"USD\",\n  \"target_currency\": \"TRY\",\n  \"buy_price\": 32.50,\n  \"sell_price\": 33.00,\n  \"sort_order\": 1,\n  \"is_visible\": true\n}"
-            },
+            "method": "GET",
+            "header": [],
             "url": {
-              "raw": "{{base_url}}/api/currencies",
+              "raw": "{{base_url}}/api/currencies?visible=true",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
                 "currencies"
+              ],
+              "query": [
+                {
+                  "key": "visible",
+                  "value": "true"
+                }
               ]
-            }
+            },
+            "description": "Public endpoint. Returns currencies where is_visible is true."
           }
         },
         {
-          "name": "Get Currency by ID",
+          "name": "Get Currency By ID",
           "request": {
             "method": "GET",
             "header": [],
@@ -141,7 +168,58 @@
                 "currencies",
                 "{{currency_id}}"
               ]
+            },
+            "description": "Public endpoint. Returns one currency by UUID."
+          }
+        },
+        {
+          "name": "Create Currency",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (json.data?.id) {",
+                  "  pm.collectionVariables.set('currency_id', json.data.id);",
+                  "}"
+                ]
+              }
             }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"base_currency\": \"USD\",\n  \"target_currency\": \"SYP\",\n  \"buy_price\": \"14500\",\n  \"sell_price\": \"14600\",\n  \"sort_order\": 10,\n  \"is_visible\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/currencies",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "currencies"
+              ]
+            },
+            "description": "Protected endpoint. Requires Authorization: Bearer {{token}}."
           }
         },
         {
@@ -160,7 +238,12 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"buy_price\": 32.75,\n  \"sell_price\": 33.25\n}"
+              "raw": "{\n  \"base_currency\": \"USD\",\n  \"target_currency\": \"SYP\",\n  \"buy_price\": \"14550\",\n  \"sell_price\": \"14650\",\n  \"sort_order\": 10,\n  \"is_visible\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": {
               "raw": "{{base_url}}/api/currencies/{{currency_id}}",
@@ -172,7 +255,8 @@
                 "currencies",
                 "{{currency_id}}"
               ]
-            }
+            },
+            "description": "Protected endpoint. Any subset of fields can be sent."
           }
         },
         {
@@ -195,13 +279,14 @@
                 "currencies",
                 "{{currency_id}}"
               ]
-            }
+            },
+            "description": "Protected endpoint. Deletes one currency by UUID."
           }
         }
       ]
     },
     {
-      "name": "Prices",
+      "name": "Public Display",
       "item": [
         {
           "name": "Get Visible Prices",
@@ -217,11 +302,12 @@
                 "api",
                 "prices"
               ]
-            }
+            },
+            "description": "Public endpoint used by the headquarters display. Returns visible currencies only."
           }
         },
         {
-          "name": "Update Price by ID",
+          "name": "Legacy Update Price By ID",
           "request": {
             "method": "PATCH",
             "header": [
@@ -236,7 +322,12 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"buy_price\": 32.75,\n  \"sell_price\": 33.25\n}"
+              "raw": "{\n  \"buy_price\": \"14575\",\n  \"sell_price\": \"14675\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": {
               "raw": "{{base_url}}/api/prices/{{currency_id}}",
@@ -248,14 +339,10 @@
                 "prices",
                 "{{currency_id}}"
               ]
-            }
+            },
+            "description": "Protected legacy endpoint. Prefer /api/currencies/:id for Flutter."
           }
-        }
-      ]
-    },
-    {
-      "name": "Settings",
-      "item": [
+        },
         {
           "name": "Get Settings",
           "request": {
@@ -270,14 +357,19 @@
                 "api",
                 "settings"
               ]
-            }
+            },
+            "description": "Public endpoint. Returns ticker settings used by the display."
           }
         },
         {
-          "name": "Update Ticker Settings",
+          "name": "Update Settings Ticker",
           "request": {
             "method": "POST",
             "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
               {
                 "key": "Content-Type",
                 "value": "application/json"
@@ -285,7 +377,12 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"ticker_text\": \"New Ticker Value\"\n}"
+              "raw": "{\n  \"ticker_text\": \"AlSafi exchange rates update live.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": {
               "raw": "{{base_url}}/api/settings",
@@ -296,7 +393,8 @@
                 "api",
                 "settings"
               ]
-            }
+            },
+            "description": "Protected endpoint. Updates the public ticker text."
           }
         }
       ]
@@ -309,13 +407,23 @@
       "type": "string"
     },
     {
+      "key": "admin_email",
+      "value": "admin@example.com",
+      "type": "string"
+    },
+    {
+      "key": "admin_password",
+      "value": "password123",
+      "type": "string"
+    },
+    {
       "key": "token",
-      "value": "your_admin_token_here",
+      "value": "",
       "type": "string"
     },
     {
       "key": "currency_id",
-      "value": "1",
+      "value": "",
       "type": "string"
     }
   ]
