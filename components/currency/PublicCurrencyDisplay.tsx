@@ -142,7 +142,7 @@ export default function PublicCurrencyDisplay() {
       <div className="flex-1 flex flex-col lg:flex-row p-2 sm:p-4 lg:p-6 gap-2 sm:gap-4 lg:gap-6 min-h-0">
         
         {/* Right side Logo Panel (RTL: First child) */}
-        <div className="w-full lg:w-[30%] h-[15vh] sm:h-[20vh] lg:h-full rounded-2xl lg:rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.15)] relative overflow-hidden border border-gray-300 shrink-0">
+        <div className="w-full lg:w-[28%] h-[15vh] sm:h-[20vh] lg:h-full rounded-2xl lg:rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.15)] relative overflow-hidden border border-gray-300 shrink-0">
           <img
             src="/assets/images/logo/panel.png"
             alt="Safi Panel"
@@ -151,7 +151,7 @@ export default function PublicCurrencyDisplay() {
         </div>
 
         {/* Left side Grid Panel */}
-        <div className="w-full lg:w-[70%] flex flex-col relative flex-1 min-h-0">
+        <div className="w-full lg:w-[72%] flex flex-col relative flex-1 min-h-0">
           <style>{`
             @keyframes fadeInSlide {
               from { opacity: 0; transform: translateY(10px); }
@@ -174,7 +174,7 @@ export default function PublicCurrencyDisplay() {
               {paginatedCurrencies.map((currency) => (
                 <article
                   key={currency.id}
-                  className="flex flex-col rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.1)] border border-gray-200 bg-white min-h-0"
+                  className="flex flex-col rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.1)] border border-gray-200 bg-white min-h-0 max-h-[25vh]"
                 >
                   {/* Currency Header */}
                   <div className="bg-[#08422e] text-white text-center py-1 sm:py-2 text-xl sm:text-2xl 2xl:text-3xl font-extrabold shadow-sm shrink-0">
