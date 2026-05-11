@@ -130,28 +130,28 @@ export default function PublicCurrencyDisplay() {
   }, []);
 
   return (
-    <main dir="rtl" className="min-h-screen overflow-hidden flex flex-col bg-[#eef2f0] text-gray-900 font-sans">
+    <main dir="rtl" className="min-h-screen overflow-x-hidden lg:overflow-hidden flex flex-col bg-[#eef2f0] text-gray-900 font-sans">
       {/* Header */}
-      <header className="bg-gradient-to-l from-[#08422e] via-[#0b6b4a] to-[#08422e] py-5 shadow-lg z-10 border-b-[4px] border-[#0b6b4a]">
-        <h1 className="text-center text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white drop-shadow-md tracking-wide">
+      <header className="bg-gradient-to-l from-[#08422e] via-[#0b6b4a] to-[#08422e] py-3 sm:py-5 shadow-lg z-10 border-b-[4px] border-[#0b6b4a]">
+        <h1 className="text-center text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white drop-shadow-md tracking-wide">
           شركة الصافي للصرافة والحوالات
         </h1>
       </header>
 
       {/* Main Content: 2 Columns */}
-      <div className="flex-1 flex flex-row p-6 gap-6 h-[calc(100vh-160px)]">
+      <div className="flex-1 flex flex-col lg:flex-row p-4 sm:p-6 gap-4 sm:gap-6 lg:h-[calc(100vh-160px)]">
         
         {/* Right side Logo Panel (RTL: First child) */}
-        <div className="w-[30%] rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.15)] relative overflow-hidden border border-gray-300">
+        <div className="w-full lg:w-[30%] h-[120px] sm:h-[200px] lg:h-auto rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.15)] relative overflow-hidden border border-gray-300 shrink-0">
           <img
             src="/assets/images/logo/panel.png"
             alt="Safi Panel"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover lg:object-fill"
           />
         </div>
 
         {/* Left side Grid Panel */}
-        <div className="w-[70%] flex flex-col relative">
+        <div className="w-full lg:w-[70%] flex flex-col relative lg:h-full flex-1">
           <style>{`
             @keyframes fadeInSlide {
               from { opacity: 0; transform: translateY(10px); }
@@ -170,14 +170,14 @@ export default function PublicCurrencyDisplay() {
               {error}
             </div>
           ) : (
-            <div key={currentPage} className="grid grid-cols-2 gap-5 h-full auto-rows-fr animate-fade-in">
+            <div key={currentPage} className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 h-full auto-rows-fr animate-fade-in pb-4 lg:pb-0">
               {paginatedCurrencies.map((currency) => (
                 <article
                   key={currency.id}
-                  className="flex flex-col rounded-2xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.1)] border border-gray-200 bg-white max-h-[320px]"
+                  className="flex flex-col rounded-2xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.1)] border border-gray-200 bg-white lg:max-h-[320px]"
                 >
                   {/* Currency Header */}
-                  <div className="bg-[#08422e] text-white text-center py-4 text-3xl xl:text-4xl font-extrabold shadow-sm">
+                  <div className="bg-[#08422e] text-white text-center py-2 sm:py-4 text-2xl sm:text-3xl xl:text-4xl font-extrabold shadow-sm">
                     {currency.base_currency} / {currency.target_currency}
                   </div>
                   
@@ -185,20 +185,20 @@ export default function PublicCurrencyDisplay() {
                   <div className="flex flex-1">
                     {/* Buy Section */}
                     <div className="flex-1 bg-[#0b6b4a] flex flex-col text-white border-l border-white/20">
-                      <div className="text-center py-3 text-2xl xl:text-3xl font-bold bg-black/15 shadow-inner">
+                      <div className="text-center py-2 sm:py-3 text-xl sm:text-2xl xl:text-3xl font-bold bg-black/15 shadow-inner">
                         سعر الشراء
                       </div>
-                      <div className="flex-1 flex items-center justify-center text-6xl xl:text-7xl font-black drop-shadow-md">
+                      <div className="flex-1 flex items-center justify-center py-4 lg:py-6 text-3xl sm:text-4xl 2xl:text-7xl font-black drop-shadow-md">
                         {currency.buy_price}
                       </div>
                     </div>
                     
                     {/* Sell Section */}
                     <div className="flex-1 bg-white flex flex-col text-[#08422e]">
-                      <div className="text-center py-3 text-2xl xl:text-3xl font-bold bg-gray-100 border-b border-gray-200 shadow-inner">
+                      <div className="text-center py-2 sm:py-3 text-xl sm:text-2xl xl:text-3xl font-bold bg-gray-100 border-b border-gray-200 shadow-inner">
                         سعر المبيع
                       </div>
-                      <div className="flex-1 flex items-center justify-center text-6xl xl:text-7xl font-black">
+                      <div className="flex-1 flex items-center justify-center py-4 lg:py-6 text-3xl sm:text-4xl 2xl:text-7xl font-black">
                         {currency.sell_price}
                       </div>
                     </div>
@@ -211,7 +211,7 @@ export default function PublicCurrencyDisplay() {
       </div>
 
       {/* Footer Ticker */}
-      <footer className="bg-gradient-to-r from-[#0b6b4a] to-[#08422e] text-white flex items-center text-3xl font-bold shadow-inner h-[80px] border-t-[4px] border-[#08422e]">
+      <footer className="bg-gradient-to-r from-[#0b6b4a] to-[#08422e] text-white flex items-center text-xl sm:text-3xl font-bold shadow-inner h-[60px] sm:h-[80px] border-t-[4px] border-[#08422e] shrink-0">
         {/* <div className="bg-white text-[#08422e] px-10 h-full flex items-center justify-center z-10 shadow-xl rounded-l-2xl ml-4">
           الأخبار
         </div> */}
