@@ -42,6 +42,5 @@ export async function POST(request: NextRequest) {
   return jsonResponse({
     token,
     token_type: "Bearer",
-    expires_in: 60 * 60 * 24 * 7,
   });
 }
