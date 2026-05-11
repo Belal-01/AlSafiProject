@@ -188,7 +188,7 @@ export default function PublicCurrencyDisplay() {
                       <div className="text-center py-1 sm:py-2 text-xl  2xl:text-3xl  font-bold bg-black/15 shadow-inner shrink-0">
                         سعر الشراء
                       </div>
-                      <div className="flex-1 flex items-center justify-center py-1 sm:py-2 lg:py-4 text-2xl sm:text-3xl 2xl:text-6xl font-black drop-shadow-md min-h-0 overflow-hidden text-ellipsis whitespace-nowrap">
+                      <div className="flex-1 flex items-center justify-center py-1 sm:py-2 lg:py-4 text-2xl sm:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl font-black drop-shadow-md min-h-0 overflow-hidden text-ellipsis whitespace-nowrap">
                         {currency.buy_price}
                       </div>
                     </div>
@@ -198,7 +198,7 @@ export default function PublicCurrencyDisplay() {
                       <div className="text-center py-1 sm:py-2 text-xl  2xl:text-3xl  font-bold bg-gray-100 border-b border-gray-200 shadow-inner shrink-0">
                         سعر المبيع
                       </div>
-                      <div className="flex-1 flex items-center justify-center py-1 sm:py-2 lg:py-4 text-2xl sm:text-3xl 2xl:text-6xl font-black min-h-0 overflow-hidden text-ellipsis whitespace-nowrap">
+                      <div className="flex-1 flex items-center justify-center py-1 sm:py-2 lg:py-4 text-2xl sm:text-3xl xl:text-4xl 2xl:text-5xl  3xl:text-6xl font-black min-h-0 overflow-hidden text-ellipsis whitespace-nowrap">
                         {currency.sell_price}
                       </div>
                     </div>
