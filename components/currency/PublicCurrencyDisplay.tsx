@@ -39,7 +39,7 @@ export default function PublicCurrencyDisplay() {
         const totalPages = Math.ceil(visibleCurrencies.length / 6);
         return (prev + 1) % totalPages;
       });
-    }, 10000);
+    }, 30000);
 
     return () => clearInterval(interval);
   }, [visibleCurrencies.length]);
@@ -132,14 +132,14 @@ export default function PublicCurrencyDisplay() {
   return (
     <main dir="rtl" className="h-screen w-screen overflow-hidden flex flex-col bg-[#eef2f0] text-gray-900 font-sans">
       {/* Header */}
-      <header className="bg-gradient-to-l from-[#08422e] via-[#0b6b4a] to-[#08422e] py-2 sm:py-4 shadow-lg z-10 border-b-[4px] border-[#0b6b4a] shrink-0">
+      <header className="bg-gradient-to-l from-[#08422e] via-[#0b6b4a] to-[#08422e] py-2 sm:py-3 shadow-lg z-10 border-b-[4px] border-[#0b6b4a] shrink-0">
         <h1 className="text-center text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white drop-shadow-md tracking-wide">
           شركة الصافي للصرافة والحوالات
         </h1>
       </header>
 
       {/* Main Content: 2 Columns */}
-      <div className="flex-1 flex flex-col lg:flex-row p-2 sm:p-4 lg:p-6 gap-2 sm:gap-4 lg:gap-6 min-h-0">
+      <div className="flex-1 flex flex-col lg:flex-row p-2 sm:p-4 lg:p-4  gap-2 sm:gap-4 lg:gap-6 min-h-0">
         
         {/* Right side Logo Panel (RTL: First child) */}
         <div className="w-full lg:w-[28%] h-[15vh] sm:h-[20vh] lg:h-full rounded-2xl lg:rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.15)] relative overflow-hidden border border-gray-300 shrink-0">
