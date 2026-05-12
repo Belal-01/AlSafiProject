@@ -194,7 +194,7 @@ export default function PublicCurrencyDisplay() {
                     </div>
                     
                     {/* Sell Section */}
-                    <div className="flex-1 bg-white flex flex-col text-[#08422e] min-h-0">
+                    <div className="flex-1 bg-white flex flex-col text-red-600 min-h-0">
                       <div className="text-center py-1 sm:py-2 text-xl  2xl:text-3xl  font-bold bg-gray-100 border-b border-gray-200 shadow-inner shrink-0">
                         سعر المبيع
                       </div>
@@ -247,3 +247,16 @@ export default function PublicCurrencyDisplay() {
         //           Alsafi for EXCHANGE AND REMITTANCES
         //         </p>
         //     </div>
+
+
+
+
+
+                  //  <div className="flex-1 bg-white flex flex-col text-[#08422e] min-h-0">
+                  //     <div className="text-center py-1 sm:py-2 text-xl  2xl:text-3xl  font-bold bg-gray-100 border-b border-gray-200 shadow-inner shrink-0">
+                  //       سعر المبيع
+                  //     </div>
+                  //     <div className="flex-1 flex items-center justify-center py-1 sm:py-2 lg:py-4 text-2xl sm:text-3xl xl:text-4xl 2xl:text-5xl  3xl:text-6xl font-black min-h-0 overflow-hidden text-ellipsis whitespace-nowrap">
+                  //       {currency.sell_price}
+                  //     </div>
+                  //   </div>
